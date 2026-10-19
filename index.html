@@ -65,14 +65,20 @@
       HTMLFormElement.prototype.submit.call(form);
       timeoutId=setTimeout(()=>{if(pendingId){resetPending();notice('We couldn’t confirm your RSVP. Please check with Eug & Sav before submitting again.',true);}},25000);
     });
-    window.addEventListener('message', event=>{
-      if (
-        event.origin !== 'null' &&
-        !/^https:\/\/(script\.google\.com|script\.googleusercontent\.com)(:\d+)?$/.test(event.origin)
-        )   return;
+    window.addEventListener('message', event => {
+      const data = event.data;
+      if (!data || data.type !== 'eug-sav-rsvp') return;
+      if (!pendingId || data.requestId !== pendingId) return;
+      if (event.origin !== 'null' &&
+          !/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)(?::\d+)?$/i.test(event.origin)) return;
       resetPending();
-      if(data.ok){notice('Thank you! Your RSVP has been received. We’re so glad you let us know. ♡',false);form.reset();updateAttendance();}
-      else{notice(data.message || 'Sorry, something went wrong. Please try again or contact Eug & Sav.',true);}
+      if (data.ok) {
+        notice('Thank you! Your RSVP has been received. We’re so glad you let us know. ♡', false);
+        form.reset();
+        updateAttendance();
+      } else {
+        notice(data.message || 'Sorry, something went wrong. Please contact Eug & Sav.', true);
+      }
     });
     updateAttendance();
   </script>
