@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f5ef" />
+  <meta name="description" content="A decade of us. Join Eug and Sav in Kilfenora, County Clare, as we renew our vows." />
+  <title>Eug & Sav | A Decade of Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#263a32;--pine:#264c3e;--moss:#7f8a6c;--cream:#f7f5ef;--paper:#fffcf7;--line:#d8d9ce;--gold:#b1955e;--muted:#667368}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;line-height:1.65}
+    a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}::selection{background:#d8e1d3}
+    .wrap{width:min(1100px,calc(100% - 48px));margin:auto}.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-weight:700;font-size:11px;color:var(--moss)}
+    .nav{position:absolute;z-index:2;width:100%;padding:30px 0}.nav .wrap{display:flex;justify-content:space-between;align-items:center}.monogram{font-family:'Playfair Display',serif;font-size:25px;letter-spacing:-.05em;text-decoration:none;color:var(--pine)}.nav-links{display:flex;align-items:center;gap:30px}.nav-links a{font-size:12px;text-decoration:none;font-weight:700;letter-spacing:.06em}.nav-links .nav-rsvp{padding:11px 22px;border:1px solid var(--pine);border-radius:100px}
+    .hero{min-height:800px;min-height:100svh;display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 82% 70%,#e4e9dd 0,transparent 35%),radial-gradient(ellipse at 10% 12%,#ede8d9 0,transparent 45%),var(--cream)}
+    .hero:before,.hero:after{content:'';position:absolute;width:470px;height:670px;border:1px solid rgba(127,138,108,.28);border-radius:50%;transform:rotate(36deg);pointer-events:none}.hero:before{left:-260px;top:14%}.hero:after{right:-270px;bottom:0;transform:rotate(-28deg)}
+    .hero-content{text-align:center;padding:155px 0 108px;position:relative;z-index:1}.hero .small-rule{width:48px;height:1px;background:var(--gold);margin:24px auto 31px}.hero h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(74px,12vw,155px);letter-spacing:-.07em;line-height:1.03;margin:16px 0}.hero h1 em{font-weight:400;color:var(--pine)}.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,34px);font-style:italic;margin:10px 0 15px}.hero-location{letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:700;margin:0 0 37px}.pill{display:inline-block;background:var(--pine);color:white;border:1px solid var(--pine);padding:15px 34px;border-radius:999px;text-decoration:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;transition:.2s}.pill:hover{background:#17362a;transform:translateY(-2px)}.scroll-note{position:absolute;bottom:30px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    section{padding:110px 0}.story{text-align:center}.story .inner{max-width:755px;margin:auto}.story h2,.details h2,.rsvp h2{font:400 clamp(38px,5vw,66px)/1.16 'Playfair Display',serif;letter-spacing:-.045em;margin:15px 0 27px}.story p{font-size:17px;color:#56665b;line-height:1.95}.divider-ornament{margin:25px auto;color:var(--gold);font:28px 'Playfair Display',serif}
+    .anniversary{background:var(--pine);color:#f7f5ef;text-align:center;padding:94px 0}.anniversary .eyebrow{color:#bec9af}.ten{font:400 clamp(80px,15vw,160px)/1 'Playfair Display',serif;margin:0}.anniversary h2{font:italic 400 clamp(26px,4vw,43px)/1.3 'Playfair Display',serif;margin:10px 0}.anniversary p{color:#d9e1d6;margin:18px 0 0}
+    .details{background:var(--paper)}.section-intro{text-align:center;margin-bottom:56px}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.detail-card{border:1px solid var(--line);padding:37px 30px 42px;text-align:center;background:#fffefa;min-height:250px}.detail-icon{font:32px 'Playfair Display',serif;color:var(--gold)}.detail-card h3{font:400 28px 'Playfair Display',serif;margin:15px 0 10px}.detail-card p{font-size:14px;color:var(--muted);margin:0}.detail-card a{color:var(--pine);text-underline-offset:4px}.detail-note{text-align:center;font-size:13px;color:var(--muted);margin-top:30px}
+    .rsvp{background:#e9eee6}.rsvp-shell{display:grid;grid-template-columns:1fr 1.2fr;gap:70px;align-items:start}.rsvp h2{margin-bottom:20px}.rsvp-intro{max-width:350px;color:var(--muted)}.rsvp-form{background:var(--paper);padding:42px;box-shadow:0 16px 55px rgba(37,65,47,.06)}.field{margin-bottom:22px}.field label,.field legend{display:block;margin-bottom:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.field input,.field select,.field textarea{display:block;width:100%;border:1px solid #cfd6ca;background:#fff;padding:13px 15px;border-radius:3px;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--pine);box-shadow:0 0 0 3px #dce6da}.field textarea{min-height:95px;resize:vertical}.radio-row{display:flex;gap:10px;flex-wrap:wrap}.radio-option{display:flex;align-items:center;gap:8px;border:1px solid #cfd6ca;background:white;padding:11px 14px;flex:1;min-width:165px;cursor:pointer}.radio-option input{width:auto;margin:0;accent-color:var(--pine)}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}.required{color:#a64735}.form-note{font-size:12px;color:var(--muted);margin:13px 0 0}.submit{width:100%;border-radius:3px}.submit:disabled{opacity:.6;cursor:wait}.response{display:none;padding:19px;margin-bottom:20px;background:#e2ebdf;color:var(--pine);font-size:14px}.response.error{background:#f7e7e2;color:#833f32}.response.visible{display:block}.honey{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}.footer{text-align:center;padding:55px 0;background:var(--cream)}.footer .monogram{font-size:33px}.footer p{font-size:12px;color:var(--muted);margin:12px 0 0}.footer .heart{color:var(--gold)}
+    @media(max-width:760px){.nav{padding:22px 0}.nav-links{gap:14px}.nav-links a:not(.nav-rsvp){display:none}.hero{min-height:710px}.hero-content{padding:135px 0 95px}.hero h1{font-size:clamp(67px,17vw,112px)}section{padding:75px 0}.detail-grid,.rsvp-shell{grid-template-columns:1fr}.rsvp-shell{gap:20px}.rsvp-form{padding:26px}.detail-card{min-height:0}.two-col{grid-template-columns:1fr}.anniversary{padding:80px 0}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pill{transition:none}}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="wrap"><a class="monogram" href="#top">E <span style="color:var(--gold)">&</span> S</a><div class="nav-links"><a href="#our-story">Our story</a><a href="#details">The details</a><a class="nav-rsvp" href="#rsvp">RSVP ↗</a></div></div></nav>
+  <header class="hero" id="top"><div class="hero-content wrap"><span class="eyebrow">18 March 2017 · The beginning of forever</span><div class="small-rule"></div><h1>Eug <em>&</em> Sav</h1><p class="hero-sub">A decade of us.</p><p class="hero-location">Back where it all began · Kilfenora, County Clare</p><a class="pill" href="#rsvp">Celebrate with us &nbsp; ↗</a></div><div class="scroll-note">Scroll to explore ↓</div></header>
+  <main>
+    <section class="story" id="our-story"><div class="wrap inner"><span class="eyebrow">Our story, still unfolding</span><h2>Once upon a time in Kilfenora…</h2><div class="divider-ornament">✳</div><p>On 18 March 2017, we said “I do” in Kilfenora, County Clare. Ten years, countless memories and a whole lot of life later, we're returning to the place where it all began.</p><p>We'd love for you to join us as we renew our vows, celebrate the years behind us, and raise a glass to everything still to come.</p><p>With love, <strong>Eug & Sav</strong></p></div></section>
+    <section class="anniversary"><div class="wrap"><span class="eyebrow">2017 — 2027</span><p class="ten">10</p><h2>years, one beautiful adventure.</h2><p>Same two people. Same place. Even more to celebrate.</p></div></section>
+    <section class="details" id="details"><div class="wrap"><div class="section-intro"><span class="eyebrow">A celebration in Clare</span><h2>The lovely details</h2><p>Here's what we can share so far. We'll update the finer details soon.</p></div><div class="detail-grid"><article class="detail-card"><div class="detail-icon">✺</div><h3>When</h3><p><strong>Celebration date to be announced</strong><br />We're celebrating ten years since 18 March 2017.</p></article><article class="detail-card"><div class="detail-icon">⌖</div><h3>Where</h3><p><strong>Kilfenora, County Clare</strong><br />Exact venue and directions to follow.<br /><a href="https://www.google.com/maps/search/?api=1&query=Kilfenora%2C%20County%20Clare" target="_blank" rel="noopener noreferrer">Explore Kilfenora ↗</a></p></article><article class="detail-card"><div class="detail-icon">♡</div><h3>What to expect</h3><p>A vow renewal, familiar faces, happy memories, and a proper celebration.<br />More details coming soon.</p></article></div><p class="detail-note">We'll share timings, accommodation suggestions and any other useful information as plans are confirmed.</p></div></section>
+    <section class="rsvp" id="rsvp"><div class="wrap rsvp-shell"><div><span class="eyebrow">We'd love to see you</span><h2>Will you join us?</h2><p class="rsvp-intro">Whether you can celebrate with us or have to send your love from afar, we'd be grateful if you could let us know.</p><p class="rsvp-intro">Please RSVP using the form. We'll keep you updated as the details come together.</p></div><div class="rsvp-form"><div class="response" id="response" role="status" aria-live="polite"></div><form id="rsvpForm" method="POST" target="rsvpFrame" novalidate><div class="honey" aria-hidden="true"><label for="website">Leave this field blank</label><input id="website" type="text" name="website" autocomplete="off" tabindex="-1" /></div><input type="hidden" name="requestId" id="requestId" /><div class="field"><label for="fullName">Your name <span class="required">*</span></label><input name="name" id="fullName" autocomplete="name" required maxlength="120" placeholder="Your full name" /></div><div class="field"><label for="email">Email address <span class="required">*</span></label><input type="email" name="email" id="email" autocomplete="email" required maxlength="200" placeholder="you@example.com" /></div><fieldset class="field" style="border:0;padding:0;margin-left:0;margin-right:0"><legend>Will you be joining us? <span class="required">*</span></legend><div class="radio-row"><label class="radio-option"><input type="radio" name="attendance" value="Yes" required /> Joyfully accepts</label><label class="radio-option"><input type="radio" name="attendance" value="No" required /> Regretfully declines</label></div></fieldset><div class="two-col" id="attendingFields"><div class="field"><label for="guestCount">Total attending</label><select name="guests" id="guestCount"><option value="1">1 person</option><option value="2">2 people</option><option value="3">3 people</option><option value="4">4 people</option><option value="5">5 people</option><option value="6">6 people</option></select></div><div class="field"><label for="guestNames">Other guest names</label><input name="guestNames" id="guestNames" maxlength="300" placeholder="Optional" /></div></div><div class="field"><label for="message">A little note for us (optional)</label><textarea name="message" id="message" maxlength="1000" placeholder="A message, question or song request…"></textarea></div><button class="pill submit" id="submitButton" type="submit">Send our RSVP &nbsp; ↗</button><p class="form-note">Your RSVP is sent directly to Eug & Sav. We'll only use these details to organise the celebration.</p></form><iframe name="rsvpFrame" id="rsvpFrame" title="RSVP submission" hidden></iframe></div></div></section>
+  </main><footer class="footer"><div class="wrap"><div class="monogram">E <span class="heart">&</span> S</div><p>Made with love · Kilfenora, County Clare · Est. 18.03.2017</p></div></footer>
+  <script>
+    // Replace the value below with your deployed Google Apps Script Web App URL.
+    // Keep the full https://script.google.com/macros/s/.../exec URL.
+    const RSVP_ENDPOINT = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+    const form = document.getElementById('rsvpForm');
+    const response = document.getElementById('response');
+    const submitButton = document.getElementById('submitButton');
+    const attendingFields = document.getElementById('attendingFields');
+    const guestCount = document.getElementById('guestCount');
+    const guestNames = document.getElementById('guestNames');
+    const frame = document.getElementById('rsvpFrame');
+    let pendingId = null;
+    let timeoutId = null;
+    function notice(message, isError) { response.textContent=message;response.className='response visible'+(isError?' error':'');response.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+    function resetPending(){submitButton.disabled=false;submitButton.textContent='Send our RSVP  ↗';pendingId=null;clearTimeout(timeoutId);}
+    function updateAttendance(){const no=form.querySelector('input[name="attendance"]:checked')?.value==='No';attendingFields.hidden=no;guestCount.disabled=no;guestNames.disabled=no;}
+    form.querySelectorAll('input[name="attendance"]').forEach(el=>el.addEventListener('change',updateAttendance));
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      if(!form.reportValidity())return;
+      if(!RSVP_ENDPOINT.startsWith('https://script.google.com/macros/s/') || !RSVP_ENDPOINT.endsWith('/exec')){notice('The RSVP form is not connected yet. Please contact Eug & Sav directly.',true);return;}
+      if(pendingId)return;
+      pendingId=(window.crypto?.randomUUID?.() || String(Date.now())+Math.random());
+      document.getElementById('requestId').value=pendingId;
+      form.action=RSVP_ENDPOINT;
+      submitButton.disabled=true;submitButton.textContent='Sending your RSVP…';
+      response.className='response';
+      HTMLFormElement.prototype.submit.call(form);
+      timeoutId=setTimeout(()=>{if(pendingId){resetPending();notice('We couldn’t confirm your RSVP. Please check with Eug & Sav before submitting again.',true);}},25000);
+    });
+    window.addEventListener('message', event=>{
+      if(event.source!==frame.contentWindow)return;
+      if(!/^https:\/\/(script\.google\.com|script\.googleusercontent\.com)(:\d+)?$/.test(event.origin))return;
+      const data=event.data;
+      if(!data || data.type!=='eug-sav-rsvp' || data.requestId!==pendingId)return;
+      resetPending();
+      if(data.ok){notice('Thank you! Your RSVP has been received. We’re so glad you let us know. ♡',false);form.reset();updateAttendance();}
+      else{notice(data.message || 'Sorry, something went wrong. Please try again or contact Eug & Sav.',true);}
+    });
+    updateAttendance();
+  </script>
+</body>
+</html>
