@@ -37,7 +37,7 @@
   </main><footer class="footer"><div class="wrap"><div class="monogram">E <span class="heart">&</span> S</div><p>Made with love · Kilfenora, County Clare · Est. 18.03.2017</p></div></footer>
   <script>
     // Replace the value below with your deployed Google Apps Script Web App URL.
-    // Keep the full https://script.google.com/macros/s/AKfycbyAHcof8gZVzXY75JqMwSCRyy3ZF_HwPxt6I8xlRl1uvLNPD0Um8QaJ9B5xMQZLCTjn/exec URL.
+    // Paste the /exec URL from your own Apps Script deployment.
     const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyAHcof8gZVzXY75JqMwSCRyy3ZF_HwPxt6I8xlRl1uvLNPD0Um8QaJ9B5xMQZLCTjn/exec';
     const form = document.getElementById('rsvpForm');
     const response = document.getElementById('response');
@@ -45,40 +45,87 @@
     const attendingFields = document.getElementById('attendingFields');
     const guestCount = document.getElementById('guestCount');
     const guestNames = document.getElementById('guestNames');
-    const frame = document.getElementById('rsvpFrame');
     let pendingId = null;
     let timeoutId = null;
-    function notice(message, isError) { response.textContent=message;response.className='response visible'+(isError?' error':'');response.scrollIntoView({behavior:'smooth',block:'nearest'}); }
-    function resetPending(){submitButton.disabled=false;submitButton.textContent='Send our RSVP  ↗';pendingId=null;clearTimeout(timeoutId);}
-    function updateAttendance(){const no=form.querySelector('input[name="attendance"]:checked')?.value==='No';attendingFields.hidden=no;guestCount.disabled=no;guestNames.disabled=no;}
-    form.querySelectorAll('input[name="attendance"]').forEach(el=>el.addEventListener('change',updateAttendance));
-    form.addEventListener('submit',event=>{
+    let pollId = null;
+    let probeScript = null;
+    let probeCallback = null;
+    function notice(message, isError) {
+      response.textContent = message;
+      response.className = 'response visible' + (isError ? ' error' : '');
+      response.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+    function clearProbe() {
+      if (probeCallback) { delete window[probeCallback]; probeCallback = null; }
+      if (probeScript) { probeScript.remove(); probeScript = null; }
+    }
+    function resetPending() {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send our RSVP  ↗';
+      pendingId = null;
+      clearTimeout(timeoutId);
+      clearTimeout(pollId);
+      clearProbe();
+    }
+    function updateAttendance() {
+      const no = form.querySelector('input[name="attendance"]:checked')?.value === 'No';
+      attendingFields.hidden = no;
+      guestCount.disabled = no;
+      guestNames.disabled = no;
+    }
+    form.querySelectorAll('input[name="attendance"]').forEach(el => el.addEventListener('change', updateAttendance));
+    // JSONP checks the sheet by a unique request ID. No guest data is returned.
+    // Avoids relying on Apps Script's sandboxed iframe postMessage behavior.
+    function checkReceipt(requestId) {
+      if (pendingId !== requestId) return;
+      clearProbe();
+      const callback = 'eugSavReceipt_' + requestId.replace(/[^a-zA-Z0-9]/g, '');
+      probeCallback = callback;
+      window[callback] = function(result) {
+        if (pendingId !== requestId) return;
+        clearProbe();
+        if (result && result.received === true) {
+          resetPending();
+          notice('Thank you! Your RSVP has been received. We’re so glad you let us know. ♡', false);
+          form.reset();
+          updateAttendance();
+        } else {
+          pollId = setTimeout(() => checkReceipt(requestId), 2500);
+        }
+      };
+      const script = document.createElement('script');
+      probeScript = script;
+      script.src = RSVP_ENDPOINT + '?action=status&requestId=' + encodeURIComponent(requestId)
+        + '&callback=' + encodeURIComponent(callback) + '&_=' + Date.now();
+      script.onerror = () => {
+        if (pendingId !== requestId) return;
+        clearProbe();
+        pollId = setTimeout(() => checkReceipt(requestId), 3000);
+      };
+      document.head.appendChild(script);
+    }
+    form.addEventListener('submit', event => {
       event.preventDefault();
-      if(!form.reportValidity())return;
-      if(!RSVP_ENDPOINT.startsWith('https://script.google.com/macros/s/') || !RSVP_ENDPOINT.endsWith('/exec')){notice('The RSVP form is not connected yet. Please contact Eug & Sav directly.',true);return;}
-      if(pendingId)return;
-      pendingId=(window.crypto?.randomUUID?.() || String(Date.now())+Math.random());
-      document.getElementById('requestId').value=pendingId;
-      form.action=RSVP_ENDPOINT;
-      submitButton.disabled=true;submitButton.textContent='Sending your RSVP…';
-      response.className='response';
-      HTMLFormElement.prototype.submit.call(form);
-      timeoutId=setTimeout(()=>{if(pendingId){resetPending();notice('We couldn’t confirm your RSVP. Please check with Eug & Sav before submitting again.',true);}},25000);
-    });
-    window.addEventListener('message', event => {
-      const data = event.data;
-      if (!data || data.type !== 'eug-sav-rsvp') return;
-      if (!pendingId || data.requestId !== pendingId) return;
-      if (event.origin !== 'null' &&
-          !/^https:\/\/(?:[a-z0-9-]+\.)*(?:googleusercontent\.com|google\.com)(?::\d+)?$/i.test(event.origin)) return;
-      resetPending();
-      if (data.ok) {
-        notice('Thank you! Your RSVP has been received. We’re so glad you let us know. ♡', false);
-        form.reset();
-        updateAttendance();
-      } else {
-        notice(data.message || 'Sorry, something went wrong. Please contact Eug & Sav.', true);
+      if (!form.reportValidity() || pendingId) return;
+      if (!RSVP_ENDPOINT.startsWith('https://script.google.com/macros/s/') || !RSVP_ENDPOINT.endsWith('/exec')) {
+        notice('The RSVP form is not connected yet. Please contact Eug & Sav directly.', true);
+        return;
       }
+      const requestId = window.crypto?.randomUUID?.() || String(Date.now()) + Math.random();
+      pendingId = requestId;
+      document.getElementById('requestId').value = requestId;
+      form.action = RSVP_ENDPOINT;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending your RSVP…';
+      response.className = 'response';
+      HTMLFormElement.prototype.submit.call(form);
+      // Allow the submission to reach the Sheet before checking.
+      pollId = setTimeout(() => checkReceipt(requestId), 1500);
+      timeoutId = setTimeout(() => {
+        if (pendingId !== requestId) return;
+        resetPending();
+        notice('We couldn’t verify whether your RSVP was saved. Please check with Eug & Sav before resubmitting.', true);
+      }, 30000);
     });
     updateAttendance();
   </script>
